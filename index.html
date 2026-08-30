@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rattal Academy — Quran Memorization & Tajweed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #17322F;
+    --ink-deep: #0D211E;
+    --paper: #E9E1CB;
+    --paper-soft: #F2ECDA;
+    --gold: #B4863B;
+    --gold-soft: #D6B676;
+    --sage: #6F8778;
+    --text-dark: #1B2926;
+    --text-on-ink: #E9E1CB;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Karla', sans-serif;
+    background:var(--paper);
+    color:var(--text-dark);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    line-height:1.15;
+    color:var(--ink-deep);
+  }
+
+  .on-ink h1, .on-ink h2, .on-ink h3, .on-ink p, .on-ink span, .on-ink li{
+    color:var(--text-on-ink);
+  }
+
+  a{color:inherit;}
+
+  .wrap{
+    max-width:720px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ===== Nav ===== */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(233,225,203,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(23,50,47,0.12);
+  }
+  .nav-inner{
+    max-width:720px; margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    font-family:'Fraunces', serif; font-size:1.15rem; font-weight:500;
+    letter-spacing:0.02em; color:var(--ink-deep);
+  }
+  .lang-toggle{
+    display:flex; gap:2px; background:var(--ink); border-radius:999px; padding:3px;
+  }
+  .lang-toggle button{
+    font-family:'Karla', sans-serif; font-size:0.78rem; font-weight:600;
+    padding:6px 14px; border-radius:999px; border:none; cursor:pointer;
+    background:transparent; color:var(--paper-soft); letter-spacing:0.02em;
+    transition:background 0.2s ease, color 0.2s ease;
+  }
+  .lang-toggle button.active{ background:var(--gold); color:var(--ink-deep); }
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;
+    padding:88px 0 76px;
+    overflow:hidden;
+    text-align:center;
+  }
+  .hero-star{
+    position:absolute; top:-60px; right:-60px; width:280px; height:280px;
+    opacity:0.12; pointer-events:none;
+  }
+  .hero-star.left{ top:auto; bottom:-70px; left:-70px; right:auto; }
+  .kicker{
+    font-size:0.95rem; color:var(--sage); font-weight:600; margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 6vw, 3.6rem);
+    margin-bottom:20px;
+  }
+  .hero .lede{
+    font-size:1.15rem; max-width:520px; margin:0 auto 34px;
+    color:#3A4B47;
+  }
+  .cta-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .btn{
+    display:inline-block; padding:13px 28px; border-radius:4px;
+    font-weight:600; font-size:0.98rem; text-decoration:none;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-gold{ background:var(--gold); color:var(--ink-deep); }
+  .btn-gold:hover{ transform:translateY(-1px); box-shadow:0 6px 18px rgba(180,134,59,0.35); }
+  .btn-outline{
+    background:transparent; color:var(--ink-deep); border:1.5px solid var(--ink);
+  }
+  .btn-outline:hover{ background:var(--ink); color:var(--paper); }
+  .on-ink .btn-outline{ color:var(--paper); border-color:var(--gold-soft); }
+  .on-ink .btn-outline:hover{ background:var(--gold-soft); color:var(--ink-deep); border-color:var(--gold-soft); }
+
+  /* ===== Divider ===== */
+  .divider{
+    width:56px; height:2px; background:var(--gold); margin:0 auto;
+  }
+  .divider.left{ margin:0; }
+
+  /* ===== Section shared ===== */
+  section{ padding:72px 0; }
+  .section-title{ font-size:clamp(1.7rem, 4vw, 2.2rem); margin-bottom:16px; }
+  .section-intro{ max-width:480px; font-size:1.05rem; color:#3A4B47; margin-bottom:44px; }
+  .on-ink .section-intro{ color:#C7CFC9; }
+
+  /* ===== About ===== */
+  .about{ background:var(--paper); }
+  .about-grid{ display:grid; grid-template-columns:1fr; gap:28px; }
+  .about p{ font-size:1.02rem; max-width:600px; }
+  .about p + p{ margin-top:16px; }
+
+  /* ===== What we teach ===== */
+  .teach{ background:var(--ink); }
+  .teach-list{ list-style:none; }
+  .teach-list li{
+    padding:26px 0; border-top:1px solid rgba(233,225,203,0.18);
+    display:grid; grid-template-columns:64px 1fr; gap:20px; align-items:start;
+  }
+  .teach-list li:last-child{ border-bottom:1px solid rgba(233,225,203,0.18); }
+  .teach-num{
+    font-family:'Fraunces', serif; font-size:1.6rem; color:var(--gold-soft); font-weight:500;
+  }
+  .teach-item h3{ font-size:1.2rem; margin-bottom:6px; color:var(--paper-soft); }
+  .teach-item p{ color:#BFC9C3; font-size:0.98rem; }
+
+  /* ===== Languages ===== */
+  .languages{ background:var(--paper-soft); text-align:center; }
+  .lang-cards{ display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-top:8px; }
+  .lang-card{
+    background:var(--paper); border:1px solid rgba(23,50,47,0.15);
+    border-radius:6px; padding:30px 34px; min-width:210px; text-align:left;
+    cursor:pointer; transition:border-color 0.15s ease, transform 0.15s ease;
+    display:block; text-decoration:none;
+  }
+  .lang-card:hover{ border-color:var(--gold); transform:translateY(-2px); }
+  .lang-card .arrow-hint{ font-size:0.82rem; color:var(--gold); margin-top:10px; font-weight:600; }
+  .lang-card .flag{ font-size:1.6rem; margin-bottom:10px; display:block; }
+  .lang-card h3{ font-size:1.15rem; margin-bottom:6px; }
+  .lang-card p{ font-size:0.92rem; color:#4A5B56; }
+
+  /* ===== How it works ===== */
+  .steps{ background:var(--paper); }
+  .step-row{
+    display:grid; grid-template-columns:48px 1fr; gap:20px;
+    padding:22px 0; border-bottom:1px solid rgba(23,50,47,0.12);
+  }
+  .step-row:first-of-type{ border-top:1px solid rgba(23,50,47,0.12); }
+  .step-num{
+    font-family:'Fraunces', serif; font-size:1.3rem; color:var(--gold); font-weight:500;
+  }
+  .step-row h3{ font-size:1.08rem; margin-bottom:4px; }
+  .step-row p{ font-size:0.96rem; color:#3A4B47; }
+
+  /* ===== Contact / CTA ===== */
+  .contact{ background:var(--ink-deep); text-align:center; }
+  .contact h2{ font-size:clamp(1.8rem, 5vw, 2.4rem); margin-bottom:14px; }
+  .contact p{ color:#BFC9C3; max-width:460px; margin:0 auto 32px; }
+  .contact-buttons{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .btn-icon{ display:inline-flex; align-items:center; gap:9px; }
+  .btn-icon svg{ width:18px; height:18px; flex-shrink:0; }
+
+  footer{
+    background:var(--ink-deep); padding:28px 0 40px; text-align:center;
+    border-top:1px solid rgba(233,225,203,0.12);
+  }
+  footer p{ font-size:0.85rem; color:#8FA096; }
+
+  [data-lang]{ display:none; }
+  [data-lang].active{ display:block; }
+  span[data-lang].active, li[data-lang].active{ display:list-item; }
+
+  @media (max-width:600px){
+    .hero{ padding:64px 0 56px; }
+    section{ padding:56px 0; }
+    .lang-card{ min-width:0; width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand" style="display:flex; align-items:center; gap:9px;">
+      <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M50 8 L58.6 35.4 L86 44 L58.6 52.6 L50 80 L41.4 52.6 L14 44 L41.4 35.4 Z" stroke="#B4863B" stroke-width="5" stroke-linejoin="round"/>
+      </svg>
+      Rattal <span style="color:var(--gold)">Academy</span>
+    </div>
+    <div class="lang-toggle">
+      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+      <button id="btn-fr" onclick="setLang('fr')">FR</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <svg class="hero-star" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100 10 L118 82 L190 100 L118 118 L100 190 L82 118 L10 100 L82 82 Z" stroke="#0D211E" stroke-width="1.2"/>
+    <path d="M100 40 L112 88 L160 100 L112 112 L100 160 L88 112 L40 100 L88 88 Z" stroke="#0D211E" stroke-width="1"/>
+  </svg>
+  <div class="wrap">
+    <p class="kicker active" data-lang="en">Online Quran Academy</p>
+    <p class="kicker" data-lang="fr">Académie de Coran en ligne</p>
+
+    <h1 class="active" data-lang="en">Learn to recite the Qur'an with confidence.</h1>
+    <h1 data-lang="fr">Apprenez à réciter le Coran avec assurance.</h1>
+
+    <p class="lede active" data-lang="en">One-on-one Tajweed and memorization classes for non-Arabic speakers, taught live online in English and French.</p>
+    <p class="lede" data-lang="fr">Cours particuliers de Tajweed et de mémorisation pour non-arabophones, en direct en ligne, en anglais et en français.</p>
+
+    <div class="cta-row">
+      <a href="#contact" class="btn btn-gold active" data-lang="en">Book a free trial class</a>
+      <a href="#contact" class="btn btn-gold" data-lang="fr">Réserver un cours d'essai gratuit</a>
+      <a href="#teach" class="btn btn-outline active" data-lang="en">What we teach</a>
+      <a href="#teach" class="btn btn-outline" data-lang="fr">Ce que nous enseignons</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about">
+  <div class="wrap">
+    <div class="divider left" style="margin-bottom:22px;"></div>
+    <h2 class="section-title active" data-lang="en">Built for learners starting from zero.</h2>
+    <h2 class="section-title" data-lang="fr">Conçue pour les apprenants qui partent de zéro.</h2>
+
+    <div class="active" data-lang="en">
+      <p>Rattal Academy was founded to give non-native speakers a clear, patient path into the Qur'an — no prior Arabic required. Every class is one-on-one or in small groups, so pacing follows the student, not a fixed curriculum.</p>
+      <p>We teach the rules of Tajweed (Ahkam) alongside memorization, so recitation is correct from the very first lesson rather than corrected later.</p>
+    </div>
+    <div data-lang="fr">
+      <p>Rattal Academy a été fondée pour offrir aux non-arabophones un chemin clair et patient vers le Coran, sans connaissance préalable de l'arabe. Chaque cours est individuel ou en petit groupe, au rythme de l'élève.</p>
+      <p>Nous enseignons les règles du Tajweed (Ahkam) en parallèle de la mémorisation, pour que la récitation soit juste dès la première leçon.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHAT WE TEACH ===== -->
+<section class="teach on-ink" id="teach">
+  <div class="wrap">
+    <h2 class="section-title active" data-lang="en">What we teach</h2>
+    <h2 class="section-title" data-lang="fr">Ce que nous enseignons</h2>
+
+    <ul class="teach-list active" data-lang="en">
+      <li>
+        <span class="teach-num">01</span>
+        <div class="teach-item">
+          <h3>Tajweed & Ahkam</h3>
+          <p>The rules of correct pronunciation and letter articulation, taught step by step with practice and correction.</p>
+        </div>
+      </li>
+      <li>
+        <span class="teach-num">02</span>
+        <div class="teach-item">
+          <h3>Memorization (Hifz)</h3>
+          <p>A structured, repeatable method for committing verses to memory and retaining them long-term.</p>
+        </div>
+      </li>
+      <li>
+        <span class="teach-num">03</span>
+        <div class="teach-item">
+          <h3>Recitation practice</h3>
+          <p>Guided live recitation each session, with direct feedback from your teacher.</p>
+        </div>
+      </li>
+    </ul>
+
+    <ul class="teach-list" data-lang="fr">
+      <li>
+        <span class="teach-num">01</span>
+        <div class="teach-item">
+          <h3>Tajweed & Ahkam</h3>
+          <p>Les règles de prononciation correcte et d'articulation des lettres, enseignées étape par étape avec pratique et correction.</p>
+        </div>
+      </li>
+      <li>
+        <span class="teach-num">02</span>
+        <div class="teach-item">
+          <h3>Mémorisation (Hifz)</h3>
+          <p>Une méthode structurée et répétable pour mémoriser les versets et les retenir durablement.</p>
+        </div>
+      </li>
+      <li>
+        <span class="teach-num">03</span>
+        <div class="teach-item">
+          <h3>Pratique de la récitation</h3>
+          <p>Récitation guidée en direct à chaque séance, avec des retours directs de votre professeur.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== LANGUAGES ===== -->
+<section class="languages">
+  <div class="wrap">
+    <h2 class="section-title active" data-lang="en">Taught in your language</h2>
+    <h2 class="section-title" data-lang="fr">Enseigné dans votre langue</h2>
+    <p class="section-intro active" style="margin-left:auto; margin-right:auto;"data-lang="en">Classes are held fully in English or French — no translation gap between you and your teacher.</p>
+    <p class="section-intro" style="margin-left:auto; margin-right:auto;" data-lang="fr">Les cours se déroulent entièrement en anglais ou en français — aucune barrière de traduction avec votre professeur.</p>
+
+    <div class="lang-cards">
+      <a href="#contact" class="lang-card">
+        <span class="flag">🇬🇧</span>
+        <h3 class="active" data-lang="en">English track</h3>
+        <h3 data-lang="fr">Filière anglaise</h3>
+        <p class="active" data-lang="en">Taught by our English-speaking instructor, for students worldwide.</p>
+        <p data-lang="fr">Enseignée par notre professeur anglophone, pour des élèves du monde entier.</p>
+        <span class="arrow-hint active" data-lang="en">Get in touch →</span>
+        <span class="arrow-hint" data-lang="fr">Nous contacter →</span>
+      </a>
+      <a href="#contact" class="lang-card">
+        <span class="flag">🇫🇷</span>
+        <h3 class="active" data-lang="en">French track</h3>
+        <h3 data-lang="fr">Filière française</h3>
+        <p class="active" data-lang="en">Taught by our French-speaking instructor, for students worldwide.</p>
+        <p data-lang="fr">Enseignée par notre professeure francophone, pour des élèves du monde entier.</p>
+        <span class="arrow-hint active" data-lang="en">Get in touch →</span>
+        <span class="arrow-hint" data-lang="fr">Nous contacter →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="steps">
+  <div class="wrap">
+    <h2 class="section-title active" data-lang="en">How it works</h2>
+    <h2 class="section-title" data-lang="fr">Comment ça marche</h2>
+
+    <div class="active" data-lang="en">
+      <div class="step-row">
+        <span class="step-num">1</span>
+        <div><h3>Send your availability</h3><p>Tell us your time zone and the days you're free each week.</p></div>
+      </div>
+      <div class="step-row">
+        <span class="step-num">2</span>
+        <div><h3>Free trial class</h3><p>Meet your teacher, get assessed, and try a short lesson — no cost, no commitment.</p></div>
+      </div>
+      <div class="step-row">
+        <span class="step-num">3</span>
+        <div><h3>Get your weekly slot</h3><p>We set a fixed weekly time that works around your schedule.</p></div>
+      </div>
+      <div class="step-row">
+        <span class="step-num">4</span>
+        <div><h3>Start learning</h3><p>Regular live sessions with clear progress tracking week to week.</p></div>
+      </div>
+    </div>
+
+    <div data-lang="fr">
+      <div class="step-row">
+        <span class="step-num">1</span>
+        <div><h3>Envoyez vos disponibilités</h3><p>Indiquez-nous votre fuseau horaire et vos jours libres dans la semaine.</p></div>
+      </div>
+      <div class="step-row">
+        <span class="step-num">2</span>
+        <div><h3>Cours d'essai gratuit</h3><p>Rencontrez votre professeur, passez une évaluation et essayez une courte leçon — sans frais, sans engagement.</p></div>
+      </div>
+      <div class="step-row">
+        <span class="step-num">3</span>
+        <div><h3>Votre créneau hebdomadaire</h3><p>Nous fixons un horaire hebdomadaire adapté à votre emploi du temps.</p></div>
+      </div>
+      <div class="step-row">
+        <span class="step-num">4</span>
+        <div><h3>Commencez à apprendre</h3><p>Séances régulières en direct avec un suivi clair de votre progression.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact on-ink" id="contact">
+  <div class="wrap">
+    <h2 class="active" data-lang="en">Ready to begin?</h2>
+    <h2 data-lang="fr">Prêt à commencer ?</h2>
+    <p class="active" data-lang="en">Message us on Telegram or Facebook to book your free trial class.</p>
+    <p data-lang="fr">Contactez-nous sur Telegram ou Facebook pour réserver votre cours d'essai gratuit.</p>
+
+    <div class="contact-buttons">
+      <a href="https://t.me/rattalacademy" target="_blank" rel="noopener" class="btn btn-gold active" data-lang="en">Message on Telegram</a>
+      <a href="https://t.me/rattalacademy" target="_blank" rel="noopener" class="btn btn-gold" data-lang="fr">Contacter sur Telegram</a>
+      <a href="https://www.facebook.com/share/1GyBWFMQkW/?mibextid=wwXIfr" target="_blank" rel="noopener" class="btn btn-outline active" data-lang="en">Visit our Facebook page</a>
+      <a href="https://www.facebook.com/share/1GyBWFMQkW/?mibextid=wwXIfr" target="_blank" rel="noopener" class="btn btn-outline" data-lang="fr">Visiter notre page Facebook</a>
+      <a href="mailto:rattal.academy@gmail.com" class="btn btn-outline active" data-lang="en">Email us</a>
+      <a href="mailto:rattal.academy@gmail.com" class="btn btn-outline" data-lang="fr">Nous écrire</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="active" data-lang="en">© 2026 Rattal Academy — Quran Memorization & Tajweed</p>
+  <p data-lang="fr">© 2026 Rattal Academy — Mémorisation du Coran & Tajweed</p>
+  <p style="margin-top:6px;" class="active" data-lang="en">rattal.academy@gmail.com</p>
+  <p style="margin-top:6px;" data-lang="fr">rattal.academy@gmail.com</p>
+</footer>
+
+<script>
+function setLang(lang){
+  document.querySelectorAll('[data-lang]').forEach(function(el){
+    el.classList.toggle('active', el.getAttribute('data-lang') === lang);
+  });
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+}
+</script>
+
+</body>
+</html>
